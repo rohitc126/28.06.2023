@@ -1,0 +1,84 @@
+﻿@model BusinessLayer.Entity.Material_Requisition_Report
+
+
+
+<style> 
+
+    .form-group > label {
+        font-weight: 800;
+    }
+</style>
+
+
+<div class="form-group row" style="margin-bottom:0px;">
+    <div class="col-sm-12 col-md-6">
+        <div class="form-group row">
+            <label class="col-sm-4 col-md-4 bold">Requisition No</label>
+            <div class="col-sm-8 col-md-8">
+                :  <span id="spnSampleCode" style="color: red;font-weight:bold;">@Model.REQUISITION_CODE</span>
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-md-4">REQUISITION QUANTITY</label>
+            <div class="col-sm-8 col-md-8">
+                : @Model.REQUISITION_QUANTITY
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-md-4">RATE</label>
+            <div class="col-sm-8 col-md-8">
+                : @Model.RATE
+            </div>
+            <label class="col-sm-12 col-md-2 col-form-label required">Unit</label>
+            <div class="col-sm-12 col-md-4">
+                @Html.DropDownListFor(x => x.Unit, Model.Unit_List, "Select Unit", new { @class = "custom-select2 form-control", @id = "ddlUnit", @data_placeholder = "Select Unit", @style = "width: 100%" })
+                <span id="spnErr_ddlUnit" class="field-validation-error"></span>
+            </div>
+        </div>
+        @*<div class="form-group row">
+            <label class="col-sm-4 col-md-4">AMOUNT</label>
+            <div class="col-sm-8 col-md-8">
+                @Html.TextBoxFor(@Model.AMOUNT, new { @class = "custom-select2 form-control", @id = "txtAMOUNT", @autocomplete = "off", @data_placeholder = "Select Amount", @readOnly = true })
+                <span id="spnErr_txtAMOUNT" class="field-validation-error"></span>
+            </div>
+        </div>*@
+    </div>
+</div>
+
+
+
+
+@*<div class="form-group row">
+    <label class="col-sm-12 col-md-2">Uploaded Test Report</label>
+    <div class="col-sm-12 col-md-10">
+        : <a href="#" class="btn btn-sm btn-outline-secondary" id="btnSlipView"> <i class="icon-copy fa fa-eye" aria-hidden="true" style="font-size:20px;"></i> View Report</a>
+         
+        @Html.HiddenFor(x => x.FILE_PATH, new { @id = "hdnFilePath" })
+    </div>
+</div>*@
+
+
+<div class="modal fade bs-example-modal-lg" id="DocModal" tabindex="-1" role="dialog" aria-labelledby="DocModalLabel" aria-hidden="true" style="width:100%;padding:0px;">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">View Document</h4>
+                <button type="button" class="close" aria-label="Close" id="btnDocPopupClose">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body" id="DocBody" style="padding-right: 0px; margin-right: 0px; max-height: 500px; overflow:hidden;padding:5px;">
+                <div id="DOC1"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,265 @@
+﻿@model BusinessLayer.Entity.SIEVE_ANALYSIS_REPORT
+
+
+
+<style> 
+
+    .form-group > label {
+        font-weight: 800;
+    }
+</style>
+
+
+<div class="form-group row" style="margin-bottom:0px;">
+    <div class="col-sm-12 col-md-6">
+        <div class="form-group row">
+            <label class="col-sm-4 col-md-4 bold">Sample Code</label>
+            <div class="col-sm-8 col-md-8">
+                :  <span id="spnSampleCode" style="color: red;font-weight:bold;">@Model.SAH_CODE</span>
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-md-4">Branch Name</label>
+            <div class="col-sm-8 col-md-8">
+                : @Model.Branch_Name
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-md-4">Product</label>
+            <div class="col-sm-8 col-md-8">
+                : @Model.SIZE
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-md-4">Sampling From</label>
+            <div class="col-sm-8 col-md-8">
+                : @Model.SAMPLING_FROM
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6">
+        <div class="form-group row">
+            <label class="col-sm-12 col-md-4">Propose</label>
+            <div class="col-sm-12 col-md-8">
+                :  @Model.PROPOSE
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-sm-12 col-md-2">Sampling Date</label>
+    <div class="col-sm-12 col-md-4">
+        : @Model.SAMPLING_DATE
+    </div>
+    <label class="col-sm-12 col-md-2">Testing Date</label>
+    <div class="col-sm-12 col-md-4">
+        : @Model.TESTING_DATE
+    </div>
+</div>
+
+@if (Model.sieveList != null)
+{
+    if (Model.sieveList.Count > 0)
+    {
+        
+            <div class="table-responsive">
+                <table class="table table-bordered" style="font-size: 10px; padding: 0px; margin: 0px;width:100% " id="tblList">
+
+                    <thead>
+                        <tr>
+                            <th rowspan="2" style="text-align:center;">IS Sieve Size<br />in mm</th>
+                            <th rowspan="2" style="text-align:center;">Material Retained <br /> on each sieve, gms</th>
+                            <th rowspan="2" style="text-align:center;">%<br /> Retained</th>
+                            <th rowspan="2" style="text-align:center;">%<br />Cum. Retained</th>
+                            <th rowspan="2" style="text-align:center;">%<br /> Passing</th>
+                            @if (Model.sieveList[0].iSZONE > 0)
+                            {
+                                <th colspan="4" style="text-align:center;">LIMIT, IS 383-1970 (RA-2016)</th>
+                            }
+                            else
+                            {
+                                <th style="text-align:center;">LIMIT, IS 383-1970 (RA-2016)</th>
+                            }
+                        </tr>
+                        <tr>
+                            @if (Model.sieveList[0].iSZONE > 0)
+                            {
+                                <th style="text-align:center;">Zone I </th>
+                                <th style="text-align:center;">Zone II</th>
+                                <th style="text-align:center;">Zone III </th>
+                                <th style="text-align:center;">Zone IV</th>
+                            }
+                        </tr>
+                    </thead>
+
+                    <tbody id="tbodyList">
+                        @for (int i = 0; i < Model.sieveList.Count(); i++)
+                        {
+
+                            <tr id="tr_@i">
+                                <td style="text-align: center;padding:10px;">
+                                    @Model.sieveList[i].SIEVE_SIZE 
+
+                                </td>
+                                <td style="text-align: center;padding:10px;">
+                                    @Model.sieveList[i].RETAINED_GRAMS
+                                </td>
+                                <td style="text-align: center;padding:10px;">
+                                    @Model.sieveList[i].RETAINED_PER
+                                </td>
+                                <td style="text-align: center;padding:10px;">
+                                    @Model.sieveList[i].CUM_RETAINED_PER
+                                </td>
+                                <td style="text-align: center;padding:10px;">
+                                    @Model.sieveList[i].PASSING_PER
+                                </td>
+                                @if (Model.sieveList[0].iSZONE > 0)
+                                {
+                                    if (Model.sieveList[0].iSZONE == 1)
+                                    {
+                                        <td style="text-align: center; padding: 10px; background-color: #fffada;">
+                                             @Model.sieveList[i].LIMIT_ZONE_I 
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td style="text-align: center; padding: 10px;">
+                                             @Model.sieveList[i].LIMIT_ZONE_I 
+                                        </td>
+                                    }
+
+                                    if (Model.sieveList[0].iSZONE == 2)
+                                    {
+                                        <td style="text-align: center; padding: 10px; background-color: #fffada; ">
+                                            @Model.sieveList[i].LIMIT_ZONE_II 
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td style="text-align: center; padding: 10px;">
+                                             @Model.sieveList[i].LIMIT_ZONE_II 
+                                        </td>
+                                    }
+
+                                    if (Model.sieveList[0].iSZONE == 3)
+                                    {
+                                        <td style="text-align: center; padding: 10px; background-color: #fffada; ">
+                                            @Model.sieveList[i].LIMIT_ZONE_III 
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td style="text-align: center; padding: 10px;">
+                                             @Model.sieveList[i].LIMIT_ZONE_III 
+                                        </td>
+                                    }
+
+                                    if (Model.sieveList[0].iSZONE == 4)
+                                    {
+                                        <td style="text-align: center; padding: 10px; background-color: #fffada; ">
+                                            @Model.sieveList[i].LIMIT_ZONE_IV 
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td style="text-align: center; padding: 10px;">
+                                            @Model.sieveList[i].LIMIT_ZONE_IV 
+                                        </td>
+                                    }
+                                }
+                                else
+                                {
+                                    <td style="text-align: center; padding: 10px;">
+                                        <span id="spnLimit_@i"> @Model.sieveList[i].LIMIT</span>
+                                    </td>
+                                }
+
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+            </div> 
+    <br />
+    }
+}
+
+
+<div class="form-group row">
+    <label class="col-sm-12 col-md-2">Uploaded Test Report</label>
+    <div class="col-sm-12 col-md-10">
+        : <a href="#" class="btn btn-sm btn-outline-secondary" id="btnSlipView"> <i class="icon-copy fa fa-eye" aria-hidden="true" style="font-size:20px;"></i> View Report</a>
+         
+        @Html.HiddenFor(x => x.FILE_PATH, new { @id = "hdnFilePath" })
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-sm-12 col-md-2">Remarks</label>
+    <div class="col-sm-12 col-md-10">
+        : @Model.REMARKS
+    </div>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-12 col-md-2">Tested By</label>
+    <div class="col-sm-12 col-md-4">
+        : @Model.TESTED_BY
+    </div>
+    <label class="col-sm-12 col-md-2">Checked By</label>
+    <div class="col-sm-12 col-md-4">
+        : @Model.CHECKED_BY
+    </div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" id="DocModal" tabindex="-1" role="dialog" aria-labelledby="DocModalLabel" aria-hidden="true" style="width:100%;padding:0px;">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">View Document</h4>
+                <button type="button" class="close" aria-label="Close" id="btnDocPopupClose">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body" id="DocBody" style="padding-right: 0px; margin-right: 0px; max-height: 500px; overflow:hidden;padding:5px;">
+                <div id="DOC1"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#btnSlipView').click(function () {
+
+        var FilePath = $('#hdnFilePath').val();
+      
+        $("#DOC1").html('<iframe width="100%" style="border: 0px;" height="450" src="@Url.Action("ShowDocument", "AgQualityMngt", new { FilePath = "_FilePath" }) "'.replace("_FilePath", FilePath) + 'class="img-responsive" ></iframe>');
+
+        
+        //$("#DOC1").load("SieveAnalysisTest_View/AgQualityMngt", { SAH_ID: SAH_ID });
+
+        //$("#DOC1").html('<img src="@Url.Action("ShowDocument", "AgQualityMngt", new { FilePath = "_FilePath" }) "'.replace("_FilePath", FilePath) + 'class="img-responsive" ></img>');
+        //$("#DOC1").html('<iframe src="@Url.Action("SieveAnalysis_DocView", "AgQualityMngt")?fileName=' + FilePath + '" style="width:100%;height:530px;"></iframe>');
+        $("#DOC1").show();
+        $('#DocBody').slideDown('slow');
+        $('#DocModal').modal('show'); 
+
+    });
+
+    $('#btnDocPopupClose').click(function () {
+        $('#DocBody').slideUp('slow');
+        $('#DocModal').modal('hide');
+    });
+
+</script>
+
+
+
